@@ -51,7 +51,7 @@ function draw() {
     addFallingParticlesToPixelArray();
     updateFallingParticles();
     landedToPixelArray();
-    //mirrorPixelArrayAcrossVertical();
+    mirrorPixelArrayAcrossVertical();
     hexagonizePixelArray(canvas.width / 2, canvas.height / 2);
     ctx.putImageData(imagedata, 0, 0);
     window.requestAnimationFrame(draw);
@@ -203,15 +203,14 @@ function mirrorPixelArrayAcrossVertical() {
 
     }
     for (let i = 0; i < lockedIndexesList.length; i++) {
-        if (lockedIndexesList[i] === 1) {
-            let pos = indexToXY(i * 4);
-            let newPos = [canvas.width - pos[0], pos[1]];
-            let newIndex = xyToIndex(newPos);
-            pixels[newIndex] = indexColors[i][0];
-            pixels[newIndex + 1] = indexColors[i][1];
-            pixels[newIndex + 2] = indexColors[i][2];
-            pixels[newIndex + 3] = indexColors[i][3];
-        }
+        let pos = indexToXY(lockedIndexesList[i]);
+        let newPos = [canvas.width - pos[0], pos[1]];
+        let newIndex = xyToIndex(newPos);
+        pixels[newIndex] = indexColors[i][0];
+        pixels[newIndex + 1] = indexColors[i][1];
+        pixels[newIndex + 2] = indexColors[i][2];
+        pixels[newIndex + 3] = indexColors[i][3];
+
     }
 
 }
