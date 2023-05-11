@@ -45,8 +45,8 @@ function draw() {
         fallingParticles.push({ pos: indexToXY(emitterPixel), color: currentColor });
         // If new spawn is adjacent to landed particle, the snowflake is complete
         if (particleAdjacentToLanded(fallingParticles[fallingParticles.length - 1])) {
-            noLoop();
             console.log("done");
+            return;
         }
     }
 
@@ -56,21 +56,22 @@ function draw() {
     updateFallingParticles();
     landedToPixelArray();
     mirrorPixelArrayAcrossVertical();
-
+    //rotatePixelArray(2 * Math.PI / 3, canvas.width / 2, canvas.height / 2);
     ctx.putImageData(imagedata, 0, 0);
     window.requestAnimationFrame(draw);
 }
+
 init()
 
 function xyToIndex(pos) {
     let d = 1;
-    index = 4 * ((Math.floor(pos[1]) * d) * canvas.width * d + (Math.floor(pos[0]) * d));
+    index = 4 * (((pos[1] | 0) * d) * canvas.width * d + ((pos[0] | 0) * d));
     return index;
     //return round(pos[0] * 4 + pos[1] * canvas.width * 4);
 }
 
 function indexToXY(index) {
-    return [Math.floor((index % (canvas.width * 4)) / 4), Math.floor(index / (canvas.width * 4))];
+    return [((index % (canvas.width * 4)) / 4) | 0, (index / (canvas.width * 4)) | 0];
 }
 
 function fall(particle) {
@@ -95,13 +96,13 @@ function particleAdjacentToLanded(particle) {
     let root = xyToIndex(particle.pos);
     //check the eight pixels surrounding the particleA
     let adjacents = [root - 4,
-        root + 4,
-        root - (canvas.width * 4),
-        root + (canvas.width * 4),
-        root - (canvas.width * 4) - 4,
-        root - (canvas.width * 4) + 4,
-        root + (canvas.width * 4) - 4,
-        root + (canvas.width * 4) + 4]
+    root + 4,
+    root - (canvas.width * 4),
+    root + (canvas.width * 4),
+    root - (canvas.width * 4) - 4,
+    root - (canvas.width * 4) + 4,
+    root + (canvas.width * 4) - 4,
+    root + (canvas.width * 4) + 4]
     for (let i = 0; i < adjacents.length; i++) {
         if (lockedIndexes[adjacents[i] / 4] === 1) {
             return true;
@@ -150,7 +151,7 @@ function particleToPixelArray(particle) {
     pixels[root + 3] = particle.color[3];
 }
 
-function rotatePixels(points, theta, center_x = 400, center_y = 400) {
+function rotatePoints(points, theta, center_x = 400, center_y = 400) {
     let newPoints = [];
     let x, y;
     for (let i = 0; i < points.length; i++) {
@@ -161,6 +162,27 @@ function rotatePixels(points, theta, center_x = 400, center_y = 400) {
         newPoints.push([xp, yp]);
     }
     points = newPoints;
+}
+
+function rotatePixelArray(theta, center_x, center_y) {
+    // make newpixels a copy of pixels
+    let newPixels = pixels.slice();
+    let c_theta = Math.cos(theta);
+    let s_theta = Math.sin(theta);
+    let x, y;
+    for (let i = 0; i < pixels.length; i += 4) {
+        pos = indexToXY(i);
+        x = pos[0];
+        y = pos[1];
+        let xp = (x - center_x) * c_theta - (y - center_y) * s_theta + center_x;
+        let yp = (x - center_x) * s_theta + (y - center_y) * c_theta + center_y;
+        let newIndex = xyToIndex([xp, yp]);
+        newPixels[newIndex] = pixels[i];
+        newPixels[newIndex + 1] = pixels[i + 1];
+        newPixels[newIndex + 2] = pixels[i + 2];
+        newPixels[newIndex + 3] = pixels[i + 3];
+    }
+    pixels = newPixels;
 }
 
 function mirrorPixelArrayAcrossVertical() {
