@@ -32,8 +32,6 @@ function init() {
 function draw() {
     //clear canvas
     pixels.fill(0);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
 
     const time = new Date();
     // Spawn particle
@@ -48,7 +46,6 @@ function draw() {
     }
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
     addFallingParticlesToPixelArray();
     updateFallingParticles();
     landedToPixelArray();
