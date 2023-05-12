@@ -235,11 +235,17 @@ document.querySelector("#widthSliderRange").addEventListener("input", function (
 
 document.querySelector("#color-picker").addEventListener("input", function () {
     selectedColor = hexToRgb(this.value);
+    oscillationSpeed = 0;
+    document.querySelector("#colorOscillatorRange").value = 0;
 });
 
+document.querySelector("#colorOscillatorRange").addEventListener("input", function () {
+    oscillationSpeed = this.value;
+    console.log(`oscillationSpeed changed to ${this.value}`);
+});
 function oscilateColor(timeMillis) {
-    let hue = (timeMillis/10) % 360;
-    console.log(timeMillis/10 % 360)
+    let ratio = 30/ oscillationSpeed;
+    let hue = (timeMillis/(30-oscillationSpeed)) % 360;
     let sat = 1;
     let val = 1;
     return HSVtoRGB(hue, sat, val);
