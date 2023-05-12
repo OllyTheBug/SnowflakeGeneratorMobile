@@ -14,11 +14,12 @@ let indexColors = [];
 let ctx;
 let pixels;
 let spawning = true;
+
 function init() {
     canvas = document.getElementById("canvas");
 
     // set canvas size to minimum of 400x400 and window size
-    canvas.width = Math.min(400, window.innerWidth);
+    canvas.width = Math.min(400, screen.width);
     canvas.height = canvas.width;
 
     ctx = canvas.getContext("2d");
@@ -29,7 +30,7 @@ function init() {
 
     centerHorizontal = (canvas.width * 4) * (canvas.height / 2);
     emitterPixel = (canvas.width * 2 + 4);
-    lockedIndexMatrix = new Array((canvas.width * canvas.height) / 4).fill(0);
+    lockedIndexMatrix = new Array(Math.ceil((canvas.width * canvas.height) / 4)).fill(0);
 
     window.requestAnimationFrame(draw);
 }
@@ -243,12 +244,14 @@ document.querySelector("#colorOscillatorRange").addEventListener("input", functi
     oscillationSpeed = this.value;
     console.log(`oscillationSpeed changed to ${this.value}`);
 });
+
 function oscilateColor(timeMillis) {
-    let hue = (timeMillis/(30-oscillationSpeed)) % 360;
+    let hue = (timeMillis / (30 - oscillationSpeed)) % 360;
     let sat = 1;
     let val = 1;
     return HSVtoRGB(hue, sat, val);
 }
+
 function hexToRgb(hex) {
     if (hex.length === 4) {
         hex = hex + hex[1] + hex[2] + hex[3];
