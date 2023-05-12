@@ -37,11 +37,12 @@ function draw() {
 
     const time = new Date();
     // Spawn particle
-    if (fallingParticles.length < fallingLimit && time.getMilliseconds() % 2 == 0) {
+    if (fallingParticles.length < fallingLimit && time.getMilliseconds() % 1 == 0) {
         fallingParticles.push({pos: indexToXY(emitterPixel), color: currentColor});
         // If new spawn is adjacent to landed particle, the snowflake is complete
         if (particleAdjacentToLanded(fallingParticles[fallingParticles.length - 1])) {
             console.log("done");
+            ctx.putImageData(imagedata, 0, 0);
             return;
         }
     }
@@ -110,7 +111,8 @@ function particleAdjacentToLanded(particle) {
 
 function updateFallingParticles() {
     function atBoundary(fallingParticle) {
-        return fallingParticle.pos[0] <= 50 || fallingParticle.pos[0] >= canvas.width - 50 || fallingParticle.pos[1] >= canvas.height - 500;
+        return false
+        //return fallingParticle.pos[0] <= 50 || fallingParticle.pos[0] >= canvas.width - 50 || fallingParticle.pos[1] >= canvas.height - 500;
     }
 
     for (let i = 0; i < fallingParticles.length; i++) {
