@@ -9,3 +9,8 @@
 #widthSliderRange {
     margin: 10px;
 }
+
+#color-picker {
+    margin: 10px;
+    width: 100%;
+}

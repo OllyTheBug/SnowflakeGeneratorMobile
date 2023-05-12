@@ -1,7 +1,7 @@
 let centerHorizontal;
-let leftness = 1;
-let rightness = 1;
-let oscillationSpeed = 0;
+let leftness = 2;
+let rightness = 2;
+let oscillationSpeed = 1;
 let selectedColor = [0, 255, 255, 255];
 /* -------------------------------- INTERNAL -------------------------------- */
 const fallingLimit = 1000;
@@ -39,6 +39,7 @@ function draw() {
     pixels.fill(0);
 
     const time = new Date();
+    currentColor = oscillationSpeed > 0 ? oscilateColor(time.getTime()) : selectedColor;
     // Spawn particle
     if (fallingParticles.length < fallingLimit && time.getMilliseconds() % 1 == 0 && spawning) {
         fallingParticles.push({pos: indexToXY(emitterPixel), color: currentColor});
@@ -69,7 +70,6 @@ function xyToIndex(pos) {
     let d = 1;
     index = 4 * (((pos[1] | 0) * d) * canvas.width * d + ((pos[0] | 0) * d));
     return index;
-    //return round(pos[0] * 4 + pos[1] * canvas.width * 4);
 }
 
 function indexToXY(index) {
@@ -232,3 +232,48 @@ document.querySelector("#widthSliderRange").addEventListener("input", function (
     console.log(`widthSliderRange changed to ${this.value}`);
     console.log(`leftness is ${leftness}`);
 });
+
+document.querySelector("#color-picker").addEventListener("input", function () {
+    selectedColor = hexToRgb(this.value);
+});
+
+function oscilateColor(timeMillis) {
+    let hue = (timeMillis/10) % 360;
+    console.log(timeMillis/10 % 360)
+    let sat = 1;
+    let val = 1;
+    return HSVtoRGB(hue, sat, val);
+}
+function hexToRgb(hex) {
+    if (hex.length === 4) {
+        hex = hex + hex[1] + hex[2] + hex[3];
+    }
+    let r = parseInt(hex.substring(1, 3), 16);
+    let g = parseInt(hex.substring(3, 5), 16);
+    let b = parseInt(hex.substring(5, 7), 16);
+    let a = 255;
+    return [r, g, b, a];
+}
+
+function HSVtoRGB(hue, sat, val) {
+    let chroma = val * sat;
+    let huePrime = hue / 60;
+    let x = chroma * (1 - Math.abs((huePrime % 2) - 1));
+    let r1, g1, b1;
+    if (huePrime >= 0 && huePrime <= 1) {
+        [r1, g1, b1] = [chroma, x, 0];
+    } else if (huePrime >= 1 && huePrime <= 2) {
+        [r1, g1, b1] = [x, chroma, 0];
+    } else if (huePrime >= 2 && huePrime <= 3) {
+        [r1, g1, b1] = [0, chroma, x];
+    } else if (huePrime >= 3 && huePrime <= 4) {
+        [r1, g1, b1] = [0, x, chroma];
+    } else if (huePrime >= 4 && huePrime <= 5) {
+        [r1, g1, b1] = [x, 0, chroma];
+    } else if (huePrime >= 5 && huePrime <= 6) {
+        [r1, g1, b1] = [chroma, 0, x];
+    }
+    let m = val - chroma;
+    let [r, g, b] = [r1 + m, g1 + m, b1 + m];
+    return [r * 255, g * 255, b * 255, 255];
+}
