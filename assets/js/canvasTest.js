@@ -68,7 +68,7 @@ ctx.putImageData(imagedata, 0, 0);
 
 function xyToIndex(pos) {
     let d = 1;
-    index = 4 * (((pos[1] | 0) * d) * canvas.width * d + ((pos[0] | 0) * d));
+    let index = 4 * (((pos[1] | 0) * d) * canvas.width * d + ((pos[0] | 0) * d));
     return index;
 }
 
@@ -159,8 +159,8 @@ function particleToPixelArray(particle) {
 }
 
 function rotatePoints(points, angle, center_x = 400, center_y = 400) {
-    cosTheta = Math.cos(angle);
-    sinTheta = Math.sin(angle);
+    let cosTheta = Math.cos(angle);
+    let sinTheta = Math.sin(angle);
     let newPoints = [];
     let x, y;
     for (let i = 0; i < points.length; i++) {
@@ -181,16 +181,16 @@ function pentagonizePixelArray(center_x, center_y) {
     let occupiedPoints = [];
     let occupiedIndexes = [];
     let newPoints = [];
-    for (i = 0; i < pixels.length; i += 4) {
+    for (let i = 0; i < pixels.length; i += 4) {
         if (pixels[i + 3] !== 0) {
             occupiedPoints.push(indexToXY(i));
             occupiedIndexes.push(i);
         }
     }
     // rotate by 2PI/6 5 times
-    for (i = 1; i < 5; i++) {
+    for (let i = 1; i < 5; i++) {
         newPoints = rotatePoints(occupiedPoints, angle * i, center_x, center_y);
-        for (j = 0; j < newPoints.length; j++) {
+        for (let j = 0; j < newPoints.length; j++) {
             let index = xyToIndex(newPoints[j]);
             pixels[index] = pixels[occupiedIndexes[j]];
             pixels[index + 1] = pixels[occupiedIndexes[j] + 1];
@@ -244,7 +244,6 @@ document.querySelector("#colorOscillatorRange").addEventListener("input", functi
     console.log(`oscillationSpeed changed to ${this.value}`);
 });
 function oscilateColor(timeMillis) {
-    let ratio = 30/ oscillationSpeed;
     let hue = (timeMillis/(30-oscillationSpeed)) % 360;
     let sat = 1;
     let val = 1;

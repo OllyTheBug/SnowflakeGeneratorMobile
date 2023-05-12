@@ -11,7 +11,7 @@
 
 <body>
 <div class="canvasContainer"></div>
-<div class="vstack">
+<div class="vstack" id="appStack">
 
     <div class="container" style="display: flex;">
         <canvas id="canvas" width="400" height="400" style="background-color: black;">
@@ -30,7 +30,7 @@
             </div>
             <!--Color picker-->
             <div class="hstack" id="colorOscillatorStack">
-                <label for="colorOscillatorRange"><b>Width:</b></label>
+                <label for="colorOscillatorRange"><b>Rainbow:</b></label>
                 <input id="colorOscillatorRange" type="range" class="form-range" id="colorOscillatorRange" min="0" max="29"
                        value="1" step="0.2">
             </div>
