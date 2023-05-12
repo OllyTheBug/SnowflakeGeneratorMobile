@@ -16,6 +16,11 @@ let pixels;
 
 function init() {
     canvas = document.getElementById("canvas");
+    
+    // set canvas size to minimum of 400x400 and window size
+    canvas.width = Math.min(400, window.innerWidth);
+    canvas.height = canvas.width;
+    
     ctx = canvas.getContext("2d");
 
     imagedata = ctx.createImageData(canvas.width, canvas.height);
@@ -40,7 +45,6 @@ function draw() {
         // If new spawn is adjacent to landed particle, the snowflake is complete
         if (particleAdjacentToLanded(fallingParticles[fallingParticles.length - 1])) {
             console.log("done");
-            ctx.putImageData(imagedata, 0, 0);
             return;
         }
     }
@@ -56,6 +60,7 @@ function draw() {
 }
 
 init()
+ctx.putImageData(imagedata, 0, 0);
 
 function xyToIndex(pos) {
     let d = 1;
@@ -212,3 +217,9 @@ function mirrorPixelArrayAcrossVertical() {
     }
 
 }
+
+document.querySelector("#widthSliderRange").addEventListener("input", function () {
+    leftness = this.value;
+    rightness = this.value;
+    console.log(`widthSliderRange changed to ${this.value}`);
+});

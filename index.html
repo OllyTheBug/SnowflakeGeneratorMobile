@@ -1,17 +1,36 @@
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Document</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
+
 <body>
-<div class="canvasContainer">
-    <canvas id="canvas" width="400" height="400" style="background-color:black">
-        Your browser doesn't appear to support the
-        <code>&lt;canvas&gt;</code> element.
-    </canvas>
+<div class="canvasContainer"></div>
+<div class="vstack">
+    <div class="container" id="controlsContainer">
+        <div class="btn-group" role="group"></div>
+        <div class="vstack">
+            <!--Width label and slider-->
+            <div class="hstack" id="widthSliderStack">
+                <label for="widthSlider"><b>Width:</b></label>
+                <input id="widthSliderRange" type="range" class="form-range" id="widthSlider" min="0" max="4" value="1" step="0.2">
+            </div>
+        </div>
+    </div>
+    <div class="container" style="display: flex;">
+        <canvas id="canvas" width="400" height="400" style="background-color: black;">
+            Your browser doesn't appear to support the
+            <code>&lt;canvas&gt;</code> element.
+        </canvas>
+    </div>
 </div>
-<script src="canvasTest.js"></script>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/js/canvasTest.js"></script>
 </body>
+
 </html>

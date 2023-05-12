@@ -1,0 +1,11 @@
+#controlsContainer {
+    max-width: 450px;
+}
+
+#canvas {
+    margin: auto;
+}
+
+#widthSliderRange {
+    margin: 10px;
+}
