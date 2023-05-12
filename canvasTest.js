@@ -52,7 +52,7 @@ function draw() {
     updateFallingParticles();
     landedToPixelArray();
     mirrorPixelArrayAcrossVertical();
-    hexagonizePixelArray(canvas.width / 2, canvas.height / 2);
+    pentagonizePixelArray(canvas.width / 2, canvas.height / 2);
     ctx.putImageData(imagedata, 0, 0);
     window.requestAnimationFrame(draw);
 }
@@ -163,9 +163,8 @@ function rotatePoints(points, angle, center_x = 400, center_y = 400) {
 
 // let xp = (x - center_x) * c_theta - (y - center_y) * s_theta + center_x;
 // let yp = (x - center_x) * s_theta + (y - center_y) * c_theta + center_y;
-function hexagonizePixelArray(center_x, center_y) {
-    let angle = 2 * Math.PI / 6;
-
+function pentagonizePixelArray(center_x, center_y) {
+    let angle = 2 * Math.PI / 5;
 
     let occupiedPoints = [];
     let occupiedIndexes = [];
@@ -177,7 +176,7 @@ function hexagonizePixelArray(center_x, center_y) {
         }
     }
     // rotate by 2PI/6 5 times
-    for (i = 1; i < 6; i++) {
+    for (i = 1; i < 5; i++) {
         newPoints = rotatePoints(occupiedPoints, angle * i, center_x, center_y);
         for (j = 0; j < newPoints.length; j++) {
             let index = xyToIndex(newPoints[j]);
