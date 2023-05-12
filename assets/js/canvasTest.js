@@ -1,5 +1,5 @@
 let centerHorizontal;
-let leftness = 4;
+let leftness = 1;
 let rightness = 1;
 let oscillationSpeed = 0;
 let selectedColor = [0, 255, 255, 255];
@@ -13,14 +13,14 @@ let currentColor = [0, 255, 255, 255]
 let indexColors = [];
 let ctx;
 let pixels;
-
+let spawning = true;
 function init() {
     canvas = document.getElementById("canvas");
-    
+
     // set canvas size to minimum of 400x400 and window size
     canvas.width = Math.min(400, window.innerWidth);
     canvas.height = canvas.width;
-    
+
     ctx = canvas.getContext("2d");
 
     imagedata = ctx.createImageData(canvas.width, canvas.height);
@@ -40,13 +40,16 @@ function draw() {
 
     const time = new Date();
     // Spawn particle
-    if (fallingParticles.length < fallingLimit && time.getMilliseconds() % 1 == 0) {
+    if (fallingParticles.length < fallingLimit && time.getMilliseconds() % 1 == 0 && spawning) {
         fallingParticles.push({pos: indexToXY(emitterPixel), color: currentColor});
         // If new spawn is adjacent to landed particle, the snowflake is complete
         if (particleAdjacentToLanded(fallingParticles[fallingParticles.length - 1])) {
-            console.log("done");
-            return;
+            spawning = false;
         }
+    }
+    if (spawning == false && fallingParticles.length == 0) {
+        console.log("done");
+        return;
     }
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -73,9 +76,14 @@ function indexToXY(index) {
     return [((index % (canvas.width * 4)) / 4) | 0, (index / (canvas.width * 4)) | 0];
 }
 
+function getRandomInt(min, max) {
+    return Math.round(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
+}
+
 function fall(particle) {
     particle.pos[1] += 1;
-    particle.pos[0] += Math.round(Math.random(-leftness, rightness));
+    let hstep = getRandomInt(-leftness, rightness);
+    particle.pos[0] += hstep;
 }
 
 function land(particle) {
@@ -222,4 +230,5 @@ document.querySelector("#widthSliderRange").addEventListener("input", function (
     leftness = this.value;
     rightness = this.value;
     console.log(`widthSliderRange changed to ${this.value}`);
+    console.log(`leftness is ${leftness}`);
 });
