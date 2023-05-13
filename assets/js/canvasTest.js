@@ -3,6 +3,8 @@ let leftness = 2;
 let rightness = 2;
 let oscillationSpeed = 0.5;
 let selectedColor = [0, 255, 255, 255];
+let vertexCount = 4;
+
 /* -------------------------------- INTERNAL -------------------------------- */
 const fallingLimit = 1000;
 let fallingParticles = [];
@@ -45,9 +47,6 @@ function draw() {
 
     const time = new Date();
     //print out second count
-    if(time.getMilliseconds() % 1000 == 0){
-        console.log(time.getSeconds());
-    }
     currentColor = oscillationSpeed > 0 ? oscilateColor(time.getTime()) : selectedColor;
     // Spawn particle
     if (fallingParticles.length < fallingLimit && time.getMilliseconds() % 1 == 0 && spawning) {

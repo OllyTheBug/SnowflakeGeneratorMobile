@@ -23,7 +23,7 @@ function rotatePoints(points, angle, center_x = 400, center_y = 400) {
 }
 
 function pentagonizePixelArray(center_x, center_y) {
-    let angle = 2 * Math.PI / 5;
+    let angle = 2 * Math.PI / vertexCount;
 
     let occupiedPoints = [];
     let occupiedIndexes = [];
@@ -35,7 +35,7 @@ function pentagonizePixelArray(center_x, center_y) {
         }
     }
     // rotate by 2PI/6 5 times
-    for (let i = 1; i < 5; i++) {
+    for (let i = 1; i < vertexCount; i++) {
         newPoints = rotatePoints(occupiedPoints, angle * i, center_x, center_y);
         for (let j = 0; j < newPoints.length; j++) {
             let index = xyToIndex(newPoints[j]);
@@ -44,7 +44,6 @@ function pentagonizePixelArray(center_x, center_y) {
             pixels[index + 2] = pixels[occupiedIndexes[j] + 2];
             pixels[index + 3] = 255;
         }
-
     }
 }
 
