@@ -1,7 +1,7 @@
 let centerHorizontal;
 let leftness = 2;
 let rightness = 2;
-let oscillationSpeed = 1;
+let oscillationSpeed = 0.5;
 let selectedColor = [0, 255, 255, 255];
 /* -------------------------------- INTERNAL -------------------------------- */
 const fallingLimit = 1000;
@@ -43,7 +43,7 @@ function draw() {
     currentColor = oscillationSpeed > 0 ? oscilateColor(time.getTime()) : selectedColor;
     // Spawn particle
     if (fallingParticles.length < fallingLimit && time.getMilliseconds() % 1 == 0 && spawning) {
-        fallingParticles.push({pos: indexToXY(emitterPixel), color: currentColor});
+        fallingParticles.push({ pos: indexToXY(emitterPixel), color: currentColor });
         // If new spawn is adjacent to landed particle, the snowflake is complete
         if (particleAdjacentToLanded(fallingParticles[fallingParticles.length - 1])) {
             spawning = false;
@@ -105,13 +105,13 @@ function particleAdjacentToLanded(particle) {
     let root = xyToIndex(particle.pos);
     //check the eight pixels surrounding the particleA
     let adjacents = [root - 4,
-        root + 4,
-        root - (canvas.width * 4),
-        root + (canvas.width * 4),
-        root - (canvas.width * 4) - 4,
-        root - (canvas.width * 4) + 4,
-        root + (canvas.width * 4) - 4,
-        root + (canvas.width * 4) + 4]
+    root + 4,
+    root - (canvas.width * 4),
+    root + (canvas.width * 4),
+    root - (canvas.width * 4) - 4,
+    root - (canvas.width * 4) + 4,
+    root + (canvas.width * 4) - 4,
+    root + (canvas.width * 4) + 4]
     for (let i = 0; i < adjacents.length; i++) {
         if (lockedIndexMatrix[adjacents[i] / 4] === 1) {
             return true;
@@ -232,6 +232,13 @@ document.querySelector("#widthSliderRange").addEventListener("input", function (
     rightness = this.value;
     console.log(`widthSliderRange changed to ${this.value}`);
     console.log(`leftness is ${leftness}`);
+});
+
+document.querySelector("#separationSliderRange").addEventListener("input", function () {
+    rightness = leftness * (1 / this.value);
+    console.log(`separationSliderRange changed to ${this.value}`);
+    console.log(`leftness is ${leftness}`);
+    console.log(`rightness is ${rightness}`);
 });
 
 document.querySelector("#color-picker").addEventListener("input", function () {
