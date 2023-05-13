@@ -11,6 +11,7 @@ document.querySelector("#colorOscillatorRange").addEventListener("input", functi
 
 document.querySelector("#vertexSliderRange").addEventListener("input", function () {
     vertexCount = this.value;
+    document.querySelector("#vertexCountText").innerHTML = vertexCount;
 });
 
 document.querySelector("#color-picker").addEventListener("input", function () {
@@ -24,7 +25,6 @@ document.querySelector("#startButton").addEventListener("click", function () {
     initApp();
 
 });
-
 document.querySelector("#stopButton").addEventListener("click", function () {
     spawning = false;
 });
