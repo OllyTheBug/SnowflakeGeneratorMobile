@@ -1,31 +1,26 @@
 #controlsContainer {
-    max-width: 450px;
+    margin:auto;
+    max-width:450px;
+    padding:15px;
+    width:100%;
 }
 
-#canvasContainer {
-    display: flex;
-    padding: 0px;
+#appContainer {
+    display:flex;
+    flex-direction:column;
+    width:100%;
 }
 
 #canvas {
-    margin: auto;
-}
-
-#widthSliderRange {
-    margin: 10px;
+    margin:auto;
 }
 
 #color-picker {
-    margin: 10px;
-    width: 100%;
-}
-
-#colorOscillatorRange {
-    margin: 10px;
+    margin:10px;
+    width:100%;
 }
 
 #appStack {
-    /*limit to width of window*/
-    max-width: 76vw;
-    max-height: 100vw;
+    max-height:100vw;
+    max-width:76vw;
 }
