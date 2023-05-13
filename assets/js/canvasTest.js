@@ -14,25 +14,29 @@ let indexColors = [];
 let ctx;
 let pixels;
 let spawning = true;
+let drawFrameId;
 
-function init() {
+function initPage() {
     canvas = document.getElementById("canvas");
-
     // set canvas size to minimum of 400x400 and window size
     canvas.width = Math.min(400, screen.width);
     canvas.height = canvas.width;
-
     ctx = canvas.getContext("2d");
-
-    imagedata = ctx.createImageData(canvas.width, canvas.height);
-
-    pixels = imagedata.data;
-
     centerHorizontal = (canvas.width * 4) * (canvas.height / 2);
     emitterPixel = (canvas.width * 2 + 4);
-    lockedIndexMatrix = new Array(Math.ceil((canvas.width * canvas.height) / 4)).fill(0);
+    imagedata = ctx.createImageData(canvas.width, canvas.height);
+    pixels = imagedata.data;
+    initApp();
+}
 
-    window.requestAnimationFrame(draw);
+function initApp() {
+    window.cancelAnimationFrame(drawFrameId);
+    spawning = true;
+    pixels.fill(0);
+    fallingParticles = [];
+    lockedIndexesList = [];
+    lockedIndexMatrix = new Array(Math.ceil((canvas.width * canvas.height) / 4)).fill(0);
+    drawFrameId = window.requestAnimationFrame(draw);
 }
 
 function draw() {
@@ -40,6 +44,10 @@ function draw() {
     pixels.fill(0);
 
     const time = new Date();
+    //print out second count
+    if(time.getMilliseconds() % 1000 == 0){
+        console.log(time.getSeconds());
+    }
     currentColor = oscillationSpeed > 0 ? oscilateColor(time.getTime()) : selectedColor;
     // Spawn particle
     if (fallingParticles.length < fallingLimit && time.getMilliseconds() % 1 == 0 && spawning) {
@@ -61,10 +69,10 @@ function draw() {
     mirrorPixelArrayAcrossVertical();
     pentagonizePixelArray(canvas.width / 2, canvas.height / 2);
     ctx.putImageData(imagedata, 0, 0);
-    window.requestAnimationFrame(draw);
+    drawFrameId = window.requestAnimationFrame(draw);
 }
 
-init()
+initPage()
 ctx.putImageData(imagedata, 0, 0);
 
 

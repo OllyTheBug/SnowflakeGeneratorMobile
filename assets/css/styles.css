@@ -1,26 +1,39 @@
 #controlsContainer {
-    margin:auto;
-    max-width:450px;
-    padding:15px;
-    width:100%;
+    margin: auto;
+    max-width: 450px;
+    padding: 15px;
+    width: 100%;
 }
 
 #appContainer {
-    display:flex;
-    flex-direction:column;
-    width:100%;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
 #canvas {
-    margin:auto;
+    margin: auto;
 }
 
 #color-picker {
-    margin:10px;
-    width:100%;
+
+    width: 100%;
 }
 
 #appStack {
-    max-height:100vw;
-    max-width:76vw;
+    max-height: 100vw;
+    max-width: 76vw;
+}
+
+#buttonStack {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: auto;
+    max-width: 450px;
+    width: 100%;
+}
+.btn{
+    margin:3px;
+    width: 33%;
 }

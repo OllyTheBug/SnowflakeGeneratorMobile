@@ -17,42 +17,46 @@
         <code>&lt;canvas&gt;</code> element.
     </canvas>
     <div id="controlsContainer">
-        <div role="group"></div>
-        <div>
-            <!--Width label and slider-->
-            <div id="widthSliderStack">
-                <label for="widthSlider"><b>Width:</b></label>
-                <input id="widthSliderRange" type="range" class="form-range" id="widthSlider" min="0.6" max="4"
-                       value="2" step="0.1">
-            </div>
-            <!--separation label and slider-->
-            <div id="separationSliderStack">
-                <label for="separationSlider"><b>Separation:</b></label>
-                <input id="separationSliderRange" type="range" class="form-range" id="separationSlider" min="1" max="5"
-                       value="1" step="0.1">
-            </div>
-            <!--Color picker-->
-            <div id="colorOscillatorStack">
-                <label for="colorOscillatorRange"><b>Rainbow:</b></label>
-                <input id="colorOscillatorRange" type="range" class="form-range" id="colorOscillatorRange" min="0"
-                       max="29" value="0.5" step="0.2">
-            </div>
-            <div id="color-pickerControl">
-                <label for="color-picker"><b>Color</b></label>
-                <input type="color" id="color-picker" name="color-picker" value="#00E1FF">
-            </div>
+
+        <!--Width label and slider-->
+        <div id="widthSliderStack">
+            <label for="widthSlider"><b>Width:</b></label>
+            <input id="widthSliderRange" type="range" class="form-range" id="widthSlider" min="0.6" max="4"
+                   value="2" step="0.1">
+        </div>
+        <!--separation label and slider-->
+        <div id="separationSliderStack">
+            <label for="separationSlider"><b>Separation:</b></label>
+            <input id="separationSliderRange" type="range" class="form-range" id="separationSlider" min="1" max="5"
+                   value="1" step="0.1">
+        </div>
+        <!--Color picker-->
+        <div id="colorOscillatorStack">
+            <label for="colorOscillatorRange"><b>Rainbow:</b></label>
+            <input id="colorOscillatorRange" type="range" class="form-range" id="colorOscillatorRange" min="0"
+                   max="29" value="0.5" step="0.2">
+        </div>
+        <div id="color-pickerControl">
+            <label for="color-picker"><b>Color</b></label>
+            <input type="color" id="color-picker" name="color-picker" value="#00E1FF">
+        </div>
+        <!--Div for start/stop/clear buttons-->
+        <div id="buttonStack">
+            <button id="startButton" class="btn btn-primary">Restart</button>
+            <button id="stopButton" class="btn btn-primary">Stop</button>
+
 
         </div>
     </div>
 </div>
 
-<script src="assets/bootstrap/js/bootstrap.min.js"></script>
-<script src="assets/js/helpers.js"></script>
-<script src="assets/js/colorConversion.js"></script>
-<script src="assets/js/controls.js"></script>
-<script src="assets/js/pointManipulations.js"></script>
-<script src="assets/js/particleOperations.js"></script>
-<script src="assets/js/canvasTest.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/helpers.js"></script>
+    <script src="assets/js/colorConversion.js"></script>
+    <script src="assets/js/controls.js"></script>
+    <script src="assets/js/pointManipulations.js"></script>
+    <script src="assets/js/particleOperations.js"></script>
+    <script src="assets/js/canvasTest.js"></script>
 
 
 </body>

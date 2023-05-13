@@ -70,3 +70,10 @@ function particleToPixelArray(particle) {
     pixels[root + 2] = particle.color[2];
     pixels[root + 3] = particle.color[3];
 }
+
+function clearParticles(){
+    fallingParticles = [];
+    lockedIndexesList = [];
+    indexColors = [];
+    lockedIndexMatrix = new Array(Math.ceil((canvas.width * canvas.height) / 4)).fill(0);
+}

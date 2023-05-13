@@ -17,3 +17,19 @@ document.querySelector("#colorOscillatorRange").addEventListener("input", functi
     oscillationSpeed = this.value;
     console.log(`oscillationSpeed changed to ${this.value}`);
 });
+// buttons
+
+document.querySelector("#startButton").addEventListener("click", function () {
+    running = false;
+    initApp();
+
+});
+
+document.querySelector("#stopButton").addEventListener("click", function () {
+    spawning = false;
+});
+
+document.querySelector("#clearButton").addEventListener("click", function () {
+    pixels.fill(0);
+    clearParticles();
+});
