@@ -1,6 +1,7 @@
 document.querySelector("#widthSliderRange").addEventListener("input", function () {
+    ratio = leftness / rightness
     leftness = this.value;
-    rightness = this.value;
+    rightness = this.value/ratio;
 });
 document.querySelector("#separationSliderRange").addEventListener("input", function () {
     rightness = leftness * (1 / this.value);

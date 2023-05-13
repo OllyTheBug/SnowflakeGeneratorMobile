@@ -56,10 +56,6 @@ function draw() {
             spawning = false;
         }
     }
-    if (spawning == false && fallingParticles.length == 0) {
-        console.log("done");
-        return;
-    }
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     addFallingParticlesToPixelArray();
