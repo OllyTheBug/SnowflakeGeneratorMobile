@@ -28,7 +28,7 @@ function pentagonizePixelArray(center_x, center_y) {
     let occupiedPoints = [];
     let occupiedIndexes = [];
     let newPoints = [];
-    for (let i = 0; i < pixels.length; i += 4) {
+    for (let i = 0; i < pixels.length/2; i += 4) {
         if (pixels[i + 3] !== 0) {
             occupiedPoints.push(indexToXY(i));
             occupiedIndexes.push(i);
