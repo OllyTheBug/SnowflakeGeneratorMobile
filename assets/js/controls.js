@@ -1,11 +1,14 @@
+/* --------------------------- Sliders and pickers -------------------------- */
 document.querySelector("#widthSliderRange").addEventListener("input", function () {
     ratio = leftness / rightness
     leftness = this.value;
     rightness = this.value/ratio;
 });
+
 document.querySelector("#separationSliderRange").addEventListener("input", function () {
     rightness = leftness * (1 / this.value);
 });
+
 document.querySelector("#colorOscillatorRange").addEventListener("input", function () {
     oscillationSpeed = this.value;
 });
@@ -20,12 +23,13 @@ document.querySelector("#color-picker").addEventListener("input", function () {
     oscillationSpeed = 0;
     document.querySelector("#colorOscillatorRange").value = 0;
 });
-// buttons
+
+/* --------------------------------- Buttons -------------------------------- */
 document.querySelector("#startButton").addEventListener("click", function () {
     running = false;
     initApp();
-
 });
+
 document.querySelector("#stopButton").addEventListener("click", function () {
     spawning = false;
 });
